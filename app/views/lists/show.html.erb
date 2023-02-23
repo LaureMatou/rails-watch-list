@@ -7,4 +7,11 @@
       </li>
     <% end %>
   </ul>
+  <h4>Add a movie in this list</h4>
+    <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.association :movie %>
+    <%= f.input :comment %>
+    <%#= f.input :list_id, as: :hidden, input_html: {value: @list.id} %>
+    <%= f.submit %>
+  <% end %>
 </div>
