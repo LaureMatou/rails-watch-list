@@ -1,17 +1,32 @@
-<div class="container">
-  <h1><%= @list.name %></h1>
-  <ul>
-    <% @list.movies.each do |movie| %>
-      <li><%= movie.title %>
-      <%= link_to "Delete movie from list", list_bookmark_path(@list), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-      </li>
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= cl_image_path @list.photo.key %>)">
+  <%= @list.name %>
+</div>
+
+<div class="row m-2">
+  <div class="card-trip col-3">
+  <% @list.movies.each do |movie| %>
+      <div class="card-trip">
+        <%= cl_image_tag(movie.poster_url) %>
+        <div class="card-trip-infos">
+          <div>
+            <h2><%= movie.title %></h2>
+            <p><%= movie.overview %></p>
+          </div>
+          <h2 class="card-trip-pricing"><%= movie.rating %></h2>
+        </div>
+      </div>
     <% end %>
-  </ul>
-  <h4>Add a movie in this list</h4>
-    <%= simple_form_for [@list, @bookmark] do |f| %>
-    <%= f.association :movie %>
-    <%= f.input :comment %>
-    <%#= f.input :list_id, as: :hidden, input_html: {value: @list.id} %>
-    <%= f.submit %>
-  <% end %>
+  </div>
+</div>
+
+<div class="row m-2">
+  <div class="col-6 justify-content-md-center border">
+    <h4>Add a movie in this list</h4>
+      <%= simple_form_for [@list, @bookmark] do |f| %>
+      <%= f.association :movie %>
+      <%= f.input :comment %>
+      <%#= f.input :list_id, as: :hidden, input_html: {value: @list.id} %>
+      <%= f.submit "Add", class: "btn btn-primary" %>
+    <% end %>
+  </div>
 </div>
